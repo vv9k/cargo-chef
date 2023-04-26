@@ -123,6 +123,9 @@ pub struct Cook {
     /// Build offline.
     #[clap(long)]
     offline: bool,
+    /// Build library.
+    #[clap(long)]
+    lib: bool,
     /// Report build timings.
     #[clap(long)]
     timings: bool,
@@ -169,6 +172,7 @@ fn _main() -> Result<(), anyhow::Error> {
             package,
             workspace,
             offline,
+            lib,
             timings,
             no_std,
             bin,
@@ -264,6 +268,7 @@ fn _main() -> Result<(), anyhow::Error> {
                     package,
                     workspace,
                     offline,
+                    lib,
                     timings,
                     no_std,
                     bin,

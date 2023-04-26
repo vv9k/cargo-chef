@@ -37,6 +37,7 @@ pub struct CookArgs {
     pub manifest_path: Option<PathBuf>,
     pub package: Option<Vec<String>>,
     pub workspace: bool,
+    pub lib: bool,
     pub offline: bool,
     pub timings: bool,
     pub no_std: bool,
@@ -102,6 +103,7 @@ fn build_dependencies(args: &CookArgs) {
         offline,
         timings,
         bin,
+        lib,
         no_std: _no_std,
     } = args;
     let cargo_path = std::env::var("CARGO").expect("The `CARGO` environment variable was not set. This is unexpected: it should always be provided by `cargo` when invoking a custom sub-command, allowing `cargo-chef` to correctly detect which toolchain should be used. Please file a bug.");
@@ -139,6 +141,9 @@ fn build_dependencies(args: &CookArgs) {
     }
     if let Some(target_dir) = target_dir {
         command_with_args.arg("--target-dir").arg(target_dir);
+    }
+    if *lib {
+        command_with_args.arg("--lib");
     }
     if target_args.benches {
         command_with_args.arg("--benches");
